@@ -41,7 +41,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'pastel',          '~> 0.7.2'
 
   spec.add_dependency 'thor',    '~> 0.20.0'
-  spec.add_dependency 'bundler', '~> 1.16', '< 2.0'
+  spec.add_dependency 'bundler', '~> 2.5', '>= 2.5.20'
 
   spec.add_development_dependency 'rspec', "~> 3.0"
   spec.add_development_dependency 'rake'
