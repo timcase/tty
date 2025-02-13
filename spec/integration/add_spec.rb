@@ -501,18 +501,20 @@ Usage:
   teletype add COMMAND [SUBCOMMAND] [OPTIONS]
 
 Options:
-  -a, [--args=arg1 arg2]           # List command argument names
-  -d, [--desc=DESC]                # Describe command's purpose
-  -f, [--force]                    # Overwrite existing command
-  -h, [--help], [--no-help]        # Display usage information
-  -t, [--test=rspec]               # Generate a test setup
-                                   # Possible values: rspec, minitest
-      [--no-color]                 # Disable colorization in output
-  -r, [--dry-run], [--no-dry-run]  # Run but do not make any changes
-      [--debug], [--no-debug]      # Run in debug mode
+  -a, [--args=arg1 arg2]                             # List command argument names
+  -d, [--desc=DESC]                                  # Describe command's purpose
+  -f, [--force]                                      # Overwrite existing command
+  -h, [--help], [--no-help], [--skip-help]           # Display usage information
+  -t, [--test=rspec]                                 # Generate a test setup
+                                                     # Possible values: rspec, minitest
+      [--no-color]                                   # Disable colorization in output
+                                                     # Default: false
+  -r, [--dry-run], [--no-dry-run], [--skip-dry-run]  # Run but do not make any changes
+      [--debug], [--no-debug], [--skip-debug]        # Run in debug mode
+                                                     # Default: false
 
 Description:
-  The `teletype add` will create a new command and place it into appropriate 
+  The `teletype add` will create a new command and place it into appropriate
   structure in the cli app.
 
   Example: teletype add config --desc 'Set and get configuration options'

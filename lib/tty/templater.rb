@@ -39,14 +39,19 @@ module TTY
     # Process templates by injecting vars and moving to location
     #
     # @api private
-    def generate(template_options, color_option)
+    def generate(template_options, file_options)
       templates.each do |src, dst|
         source      = @source_path.join(src)
         destination = @target_path.join(dst).to_s
         next unless ::File.exist?(source)
         within_root_path do
-          TTY::File.copy_file(source, destination,
-                    { context: template_options }.merge(color_option))
+          TTY::File.copy_file(
+            source,
+            destination,
+            context: template_options,
+            color: file_options[:color],
+            force: file_options[:force]
+          )
         end
       end
     end

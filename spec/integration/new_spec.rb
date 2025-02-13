@@ -5,19 +5,22 @@ RSpec.describe 'teletype new', type: :cli do
 
     output = <<-OUT
 Creating gem 'newcli'...
+Changelog enabled in config
       create  tmp/newcli/Gemfile
       create  tmp/newcli/lib/newcli.rb
       create  tmp/newcli/lib/newcli/version.rb
+      create  tmp/newcli/sig/newcli.rbs
       create  tmp/newcli/newcli.gemspec
       create  tmp/newcli/Rakefile
       create  tmp/newcli/README.md
       create  tmp/newcli/bin/console
       create  tmp/newcli/bin/setup
       create  tmp/newcli/.gitignore
-      create  tmp/newcli/.travis.yml
       create  tmp/newcli/.rspec
       create  tmp/newcli/spec/spec_helper.rb
       create  tmp/newcli/spec/newcli_spec.rb
+      create  tmp/newcli/.github/workflows/main.yml
+      create  tmp/newcli/CHANGELOG.md
       append  tmp/newcli/README.md
       inject  tmp/newcli/newcli.gemspec
       create  tmp/newcli/lib/newcli/cli.rb
@@ -319,27 +322,30 @@ Usage:
   teletype new PROJECT_NAME [OPTIONS]
 
 Options:
-  -a, [--author=name1 name2]       # Author(s) of this library
-      [--ext], [--no-ext]          # Generate a boilerpalate for C extension
-      [--coc], [--no-coc]          # Generate a code of conduct file
-                                   # Default: true
-  -f, [--force]                    # Overwrite existing files
-  -h, [--help], [--no-help]        # Display usage information
-  -l, [--license=mit]              # Generate a license file
-                                   # Default: mit
-                                   # Possible values: agplv3, apache, bsd2, bsd3, gplv2, gplv3, lgplv3, mit, mplv2, custom
-  -t, [--test=rspec]               # Generate a test setup
-                                   # Default: rspec
-                                   # Possible values: rspec, minitest
-      [--no-color]                 # Disable colorization in output
-  -r, [--dry-run], [--no-dry-run]  # Run but do not make any changes
-      [--debug], [--no-debug]      # Run in debug mode
+  -a, [--author=name1 name2]                         # Author(s) of this library
+      [--ext], [--no-ext], [--skip-ext]              # Generate a boilerpalate for C extension
+                                                     # Default: false
+      [--coc], [--no-coc], [--skip-coc]              # Generate a code of conduct file
+                                                     # Default: true
+  -f, [--force]                                      # Overwrite existing files
+  -h, [--help], [--no-help], [--skip-help]           # Display usage information
+  -l, [--license=mit]                                # Generate a license file
+                                                     # Default: mit
+                                                     # Possible values: agplv3, apache, bsd2, bsd3, gplv2, gplv3, lgplv3, mit, mplv2, custom
+  -t, [--test=rspec]                                 # Generate a test setup
+                                                     # Default: rspec
+                                                     # Possible values: rspec, minitest
+      [--no-color]                                   # Disable colorization in output
+                                                     # Default: false
+  -r, [--dry-run], [--no-dry-run], [--skip-dry-run]  # Run but do not make any changes
+      [--debug], [--no-debug], [--skip-debug]        # Run in debug mode
+                                                     # Default: false
 
 Description:
-  The 'teletype new' command creates a new command line application with a 
+  The 'teletype new' command creates a new command line application with a
   default directory structure and configuration at the specified path.
 
-  The PROJECT_NAME will be the name for the directory that includes all the 
+  The PROJECT_NAME will be the name for the directory that includes all the
   files and be the default binary name.
 
   Example: teletype new cli_app

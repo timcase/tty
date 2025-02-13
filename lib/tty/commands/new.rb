@@ -208,7 +208,7 @@ module TTY
         else
           gem_license = ' ' * gemspec.pre_var_indent
           gem_license << "#{gemspec.var_name}.license"
-          gem_license << ' ' * (gemspec.post_var_indent - '.license'.size)
+          gem_license << ' ' * [(gemspec.post_var_indent - '.license'.size), 1].max
           gem_license << "= \"#{licenses[license][:name]}\""
           gemspec.content.gsub!(/(^\s*#{gemspec.var_name}\.name\s*=\s*.*$)/,
                                 "\\1\n#{gem_license}")
@@ -223,7 +223,11 @@ module TTY
                   "Copyright (c) #{Time.now.year} #{author}. "\
                   "See [#{desc}](LICENSE.txt) for further details."
         within_root_path do
-          generator.append_to_file(readme_path, content, file_options)
+          generator.append_to_file(
+            readme_path, content,
+            force: file_options[:force],
+            color: file_options[:color]
+          )
         end
       end
 
@@ -246,9 +250,13 @@ module TTY
 
         within_root_path do
           path = app_path.join(gemspec_name)
-          generator.inject_into_file(path, content,
-            { before: /^\s*spec\.add_development_dependency\s*"bundler.*$/ }
-            .merge(file_options))
+          generator.inject_into_file(
+            path,
+            content,
+            after: /^\s*#\s*spec\.add_dependency\s*"example-gem.*$/,
+            force: file_options[:force],
+            color: file_options[:color]
+          )
         end
       end
     end # New

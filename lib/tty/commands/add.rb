@@ -56,7 +56,7 @@ module TTY
       end
 
       def file_options
-        opts = {}
+        opts = {verbose: true, force: false}
         opts[:force] = true if options['force']
         opts[:color] = false if options['no-color']
         opts
@@ -87,18 +87,22 @@ module TTY
           if !cmd_exists?(cli_content)
             match = cmd_matches.find { |m| cli_content =~ m }
             generator.inject_into_file(
-              cli_file, "\n#{cmd_template}",
-              {after: match}.merge(file_options))
+              cli_file,
+              "\n#{cmd_template}",
+              after: match,
+              color: file_options[:color],
+              verbose: file_options[:verbose]
+            )
           end
         else
           subcmd_file = "lib/#{namespaced_path}/commands/#{cmd_name_path}/#{subcmd_name_path}.rb"
           subcmd_template_path = "lib/#{namespaced_path}/templates/#{cmd_name_path}/#{subcmd_name_path}"
-          unless ::File.exists?(cmd_integ_test_file)
+          unless ::File.exist?(cmd_integ_test_file)
             @templater.add_mapping(
               "#{test_dir}/integration/command_#{test_dir}.rb.tt",
               cmd_integ_test_file)
           end
-          unless ::File.exists?(cmd_unit_test_file)
+          unless ::File.exist?(cmd_unit_test_file)
             @templater.add_mapping(
               "#{test_dir}/unit/#{cmd_name_path}_#{test_dir}.rb",
               cmd_unit_test_file
@@ -111,7 +115,7 @@ module TTY
             "#{test_dir}/unit/sub_command_#{test_dir}.rb.tt",
             "#{test_dir}/unit/#{cmd_name_path}/#{subcmd_name_path}_#{test_dir}.rb"
           )
-          unless ::File.exists?(cmd_file) # namespace already present
+          unless ::File.exist?(cmd_file) # namespace already present
             @templater.add_mapping('namespace.rb.tt', cmd_file)
           end
           @templater.add_mapping('command.rb.tt', subcmd_file)
@@ -121,16 +125,26 @@ module TTY
           if !subcmd_registered?(cli_content)
             match = register_subcmd_matches.find { |m| cli_content =~ m }
             generator.inject_into_file(
-              cli_file, "\n#{register_subcmd_template}",
-              {after: match}.merge(file_options))
+              cli_file,
+              "\n#{register_subcmd_template}",
+              after: match,
+              color: file_options[:color],
+              force: file_options[:force],
+              verbose: file_options[:verbose]
+            )
           end
 
           content = ::File.read(cmd_file)
           if !subcmd_exists?(content)
             match = subcmd_matches.find {|m| content =~ m }
             generator.inject_into_file(
-              cmd_file, "\n#{subcmd_template}",
-              {after: match}.merge(file_options))
+              cmd_file,
+              "\n#{subcmd_template}",
+              after: match,
+              color: file_options[:color],
+              force: file_options[:force],
+              verbose: file_options[:verbose]
+            )
           end
         end
       end

@@ -4,19 +4,22 @@ RSpec.describe 'teletype new', type: :cli do
 
     output = <<-OUT
 Creating gem 'cli-app'...
+Changelog enabled in config
       create  tmp/cli-app/Gemfile
       create  tmp/cli-app/lib/cli/app.rb
       create  tmp/cli-app/lib/cli/app/version.rb
+      create  tmp/cli-app/sig/cli/app.rbs
       create  tmp/cli-app/cli-app.gemspec
       create  tmp/cli-app/Rakefile
       create  tmp/cli-app/README.md
       create  tmp/cli-app/bin/console
       create  tmp/cli-app/bin/setup
       create  tmp/cli-app/.gitignore
-      create  tmp/cli-app/.travis.yml
       create  tmp/cli-app/.rspec
       create  tmp/cli-app/spec/spec_helper.rb
       create  tmp/cli-app/spec/cli/app_spec.rb
+      create  tmp/cli-app/.github/workflows/main.yml
+      create  tmp/cli-app/CHANGELOG.md
       append  tmp/cli-app/README.md
       inject  tmp/cli-app/cli-app.gemspec
       create  tmp/cli-app/lib/cli/app/cli.rb
